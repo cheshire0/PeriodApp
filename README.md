@@ -3,28 +3,27 @@
 Információk [itt](https://viauac00.github.io/laborok/hf)
 
 ## Mobil- és webes szoftverek
-### [Dátum]
-### [Alkalmazás neve]
-### [Teljes név] - ([Neptun kód])
-### [e-mail cím] 
-### Laborvezető: [Laborvezető neve]
+### [2023.10.21.]
+### [Menstruációs alkalmazás]
+### [Sebők Lili] - ([XV0M8Z])
+### [seboklili1@gmail.com] 
+### Laborvezető: [Fosztó Ábel]
 
 ## Bemutatás
 
-Az alkalmazás rövid, 2-3 mondatos bemutatása. Honnan az ötlet, mi szülte az igényt, ki lehetne a célközönség.
-A laboron és előadáson bemutatott alkalmazásokat nem lehet házi feladatnak választani.
+A menstruációs alkalmazás, amit eddig éveken keresztül használtam (Clue) pálforduláson esett át az utóbbi pár hónapban. Az alkalmazás, amit a kezdetekkor úgy reklámoztak, hogy nőktől a nőkért a szent cél érdekében, nem adnak ki adatokat stb. - manapság nem működik offline, gyenge wifi kapcsolattal sem és gombnyomásonként feldob egy hirdetést.
+Úgy voltam vele, mobweb nagyházi, akkor csinálok magamnak egy sajátot, így a célközönség elsősorban jómagam lenne. A szokásos alapfunkciók meglennének, így a paraméteres naptárbejegyzés és ha időm engedi egy egyszerű algoritmust is írok ami a jövőbe kalkulál.
 
 ## Főbb funkciók
 
-Az alkalmazás minden funkciójára kiterjedő leírás (röviden, lényegre törően). Legyen egyértelműen eldönthető, hogy az adott funkció implementálva van-e!
-Pl.: Az alkalmazással lehetőség van tételek felvételére és tárolására, valamint azok rendezett megjelenítésére, illetve frissítésre X hálózati hívás segítségével.
+Az alkalmazással lehetőség van naptárbejegyzés készítésére, tűnetek felvételére és tárolására, valamint azok naptár nézetben történő megjelenítésére, illetve múltba visszamenőleg szerkesztésére. Ezen felül bizonyos statisztikákat is meg lehet jeleníteni majd pl átlagos ciklushossz, továbbá értesítést is küldene a felhasználónak, ha kalkulált valami érdekeset.
 
 ## Választott technológiák:
 
 - (UI)
-- (fragmentek)
+- (Intent)
 - (RecyclerView)
 - (Perzisztens adattárolás)
 
 
-# Házi feladat dokumentáció (ha nincs, ez a fejezet törölhető)
+# Házi feladat dokumentáció (ha nincs -> lesz ;) )
