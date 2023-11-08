@@ -1,0 +1,17 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PeriodApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.PeriodApp" parent="Base.Theme.PeriodApp" />
+
+    <style name="Theme.PublicTransport.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/design_default_color_primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.PeriodApp</item>
+    </style>
+
+</resources>
