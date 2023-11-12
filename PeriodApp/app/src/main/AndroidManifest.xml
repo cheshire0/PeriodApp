@@ -13,7 +13,6 @@
         android:theme="@style/Theme.PeriodApp"
         tools:targetApi="31">
         <activity
-            android:theme="@style/Theme.PublicTransport.Starting"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
