@@ -43,10 +43,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dip"
-        android:text="@string/Other"/>
+        android:text="Hunger"/>
 
     <Spinner
-        android:id="@+id/spOther"
+        android:id="@+id/spHunger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

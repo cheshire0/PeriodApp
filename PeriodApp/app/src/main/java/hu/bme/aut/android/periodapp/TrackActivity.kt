@@ -3,6 +3,9 @@ package hu.bme.aut.android.periodapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.SubMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.periodapp.adapter.SymptomAdapter
@@ -32,14 +35,14 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        val date = this.intent.getStringExtra("date")
+        val date = this.intent.getStringExtra("date").toString()
         supportActionBar?.setTitle("⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆")
         binding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white))
 
         database = SymptomListDatabase.getDatabase(applicationContext)
 
         binding.fab.setOnClickListener {
-            NewSymptomItemDialogFragment().show(
+            NewSymptomItemDialogFragment(date).show(
                 supportFragmentManager,
                 NewSymptomItemDialogFragment.TAG
             )
@@ -73,5 +76,35 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
             runOnUiThread {
                 adapter.addItem(newItem)
             }
+        }
     }
-} }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val toolbarMenu: Menu = binding.toolbar.menu
+        menuInflater.inflate(R.menu.menu_toolbar, toolbarMenu)
+        for (i in 0 until toolbarMenu.size()) {
+            val menuItem: MenuItem = toolbarMenu.getItem(i)
+            menuItem.setOnMenuItemClickListener { item -> onOptionsItemSelected(item) }
+            if (menuItem.hasSubMenu()) {
+                val subMenu: SubMenu = menuItem.subMenu!!
+                for (j in 0 until subMenu.size()) {
+                    subMenu.getItem(j)
+                        .setOnMenuItemClickListener { item -> onOptionsItemSelected(item) }
+                }
+            }
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_bleeding -> {
+                item.isChecked = true
+                true
+            }
+            R.id.menu_pain -> {
+                item.isChecked = true
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+}

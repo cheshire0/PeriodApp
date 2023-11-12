@@ -19,10 +19,11 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
 
         //holder.binding.ivIcon.setImageResource(getImageResource(shoppingItem.category))
         //holder.binding.cbIsBought.isChecked = shoppingItem.isBought
+        holder.binding.tvDate.text=symptomItem.date
         holder.binding.tvBleeding.text = symptomItem.bleeding.name
         holder.binding.tvPain.text = symptomItem.pain.name
         holder.binding.tvEmotions.text = symptomItem.emotions.name
-        holder.binding.tvOther.text = symptomItem.other.name
+        holder.binding.tvOther.text = symptomItem.hunger.name
     }
 
     fun addItem(item: SymptomItem) {

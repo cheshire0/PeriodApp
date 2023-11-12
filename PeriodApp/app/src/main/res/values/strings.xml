@@ -4,10 +4,11 @@
     <string name="bleeding">Bleeding</string>
     <string name="pain">Pain</string>
     <string name="emotions">Emotions</string>
-    <string name="Other">Other</string>
+    <string name="hunger">Hunger</string>
     <string name="new_symptom_item">New Symptom</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
+    <string name="more">New Symptom</string>
 
     <string-array name="category_items">
         <item>Food</item>
@@ -33,7 +34,7 @@
         <item>Book</item>
     </string-array>
 
-    <string-array name="other_items">
+    <string-array name="hunger_items">
         <item>Food</item>
         <item>Electronic</item>
         <item>Book</item>

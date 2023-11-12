@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
-import java.util.Date
 
 @Entity(tableName = "symptomitem")
 data class SymptomItem(
@@ -13,7 +12,7 @@ data class SymptomItem(
     @ColumnInfo(name = "bleeding") var bleeding: Bleeding,
     @ColumnInfo(name = "pain") var pain: Pain,
     @ColumnInfo(name = "emotions") var emotions: Emotions,
-    @ColumnInfo(name = "other") var other: Other,
+    @ColumnInfo(name = "hunger") var hunger: Hunger,
     @ColumnInfo(name = "description") var description: String
 ) {
     enum class Bleeding {
@@ -91,14 +90,14 @@ data class SymptomItem(
         }
     }
 
-    enum class Other {
-        LOW_HUNGER;
+    enum class Hunger {
+        LOW, MEDIUM, HIGH;
 
         companion object {
             @JvmStatic
             @TypeConverter
-            fun getByOrdinal(ordinal: Int): Other? {
-                var ret: Other? = null
+            fun getByOrdinal(ordinal: Int): Hunger? {
+                var ret: Hunger? = null
                 for (ble in values()) {
                     if (ble.ordinal == ordinal) {
                         ret = ble
@@ -110,7 +109,7 @@ data class SymptomItem(
 
             @JvmStatic
             @TypeConverter
-            fun toInt(other: Other): Int {
+            fun toInt(other: Hunger): Int {
                 return other.ordinal
             }
         }

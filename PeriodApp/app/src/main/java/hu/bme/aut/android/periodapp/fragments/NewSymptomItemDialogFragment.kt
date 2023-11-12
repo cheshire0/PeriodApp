@@ -11,7 +11,7 @@ import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
-class NewSymptomItemDialogFragment  : DialogFragment() {
+class NewSymptomItemDialogFragment(var date: String)  : DialogFragment() {
     interface NewShoppingItemDialogListener {
         fun onShoppingItemCreated(newItem: SymptomItem)
     }
@@ -43,19 +43,17 @@ class NewSymptomItemDialogFragment  : DialogFragment() {
             android.R.layout.simple_spinner_dropdown_item,
             resources.getStringArray(R.array.emotions_items)
         )
-        binding.spOther.adapter = ArrayAdapter(
+        binding.spHunger.adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.other_items)
+            resources.getStringArray(R.array.hunger_items)
         )
 
         return AlertDialog.Builder(requireContext())
             .setTitle(R.string.new_symptom_item)
             .setView(binding.root)
             .setPositiveButton(R.string.button_ok) { dialogInterface, i ->
-                if (true) {
-                    listener.onShoppingItemCreated(getSymptomItem())
-                }
+                listener.onShoppingItemCreated(getSymptomItem())
             }
             .setNegativeButton(R.string.button_cancel, null)
             .create()
@@ -67,9 +65,9 @@ class NewSymptomItemDialogFragment  : DialogFragment() {
             ?: SymptomItem.Pain.CRAMPS,
         emotions = SymptomItem.Emotions.getByOrdinal(binding.spEmotions.selectedItemPosition)
             ?: SymptomItem.Emotions.HAPPY,
-        other = SymptomItem.Other.getByOrdinal(binding.spOther.selectedItemPosition)
-            ?: SymptomItem.Other.LOW_HUNGER,
-        date="bruv",
+        hunger = SymptomItem.Hunger.getByOrdinal(binding.spHunger.selectedItemPosition)
+            ?: SymptomItem.Hunger.LOW,
+        date=date,
         description="bruh"
     )
 

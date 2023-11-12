@@ -10,7 +10,7 @@ import androidx.room.TypeConverters
 @TypeConverters(value = [SymptomItem.Bleeding::class,
                          SymptomItem.Pain::class,
                          SymptomItem.Emotions::class,
-                         SymptomItem.Other::class])
+                         SymptomItem.Hunger::class])
 abstract class SymptomListDatabase : RoomDatabase() {
     abstract fun symptomItemDao(): SymptomItemDao
 
@@ -19,7 +19,7 @@ abstract class SymptomListDatabase : RoomDatabase() {
             return Room.databaseBuilder(
                 applicationContext,
                 SymptomListDatabase::class.java,
-                "shopping-list"
+                "symptom-list"
             ).build();
         }
     }
