@@ -1,33 +1,38 @@
 package hu.bme.aut.android.periodapp
 
+import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import hu.bme.aut.android.periodapp.databinding.ActivityMainBinding
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // on below line we are adding set on
-        // date change listener for calendar view.
+        binding.btnTrack.setOnClickListener{
+            val intent = Intent(this, TrackActivity::class.java)
+            intent.putExtra("date", binding.idTVDate.text)
+            startActivity(intent)
+        }
+
+        val today = Calendar.getInstance().timeInMillis
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        binding.idTVDate.setText(format.format(today))
+
         binding.calendarView
             .setOnDateChangeListener(
                 OnDateChangeListener { view, year, month, dayOfMonth ->
-                    // In this Listener we are getting values
-                    // such as year, month and day of month
-                    // on below line we are creating a variable
-                    // in which we are adding all the variables in it.
-                    val Date = (dayOfMonth.toString() + "-"
-                            + (month + 1) + "-" + year)
+                    val Date = (year.toString() + "-"
+                            + (month + 1) + "-" + dayOfMonth)
 
-                    // set this date in TextView for Display
                     binding.idTVDate.setText(Date)
                 })
 
