@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <!--text view for displaying the selected date-->
     <TextView
         android:id="@+id/idTVDate"
@@ -22,6 +21,7 @@
     <!-- Add CalendarView to display the Calendar -->
     <CalendarView
         android:id="@+id/calendarView"
+        android:theme="@style/CalenderViewCustom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idTVDate"
@@ -33,6 +33,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/calendarView"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/themeColor"
         android:text="Track" />
+
+    <Button
+        android:id="@+id/btnStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/gray"
+        android:text="Statistics" />
+
+    <TextView
+        android:id="@+id/idTVVer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="2023 Tracker"
+        android:textAlignment="center"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

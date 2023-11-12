@@ -5,25 +5,19 @@ import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import hu.bme.aut.android.periodapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    // on below line we are creating
-    // variables for text view and calendar view
-    lateinit var dateTV: TextView
-    lateinit var calendarView: CalendarView
-
+    private lateinit var binding: ActivityMainBinding
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // initializing variables of
-        // list view with their ids.
-        dateTV = findViewById(R.id.idTVDate)
-        calendarView = findViewById(R.id.calendarView)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // on below line we are adding set on
         // date change listener for calendar view.
-        calendarView
+        binding.calendarView
             .setOnDateChangeListener(
                 OnDateChangeListener { view, year, month, dayOfMonth ->
                     // In this Listener we are getting values
@@ -34,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                             + (month + 1) + "-" + year)
 
                     // set this date in TextView for Display
-                    dateTV.setText(Date)
+                    binding.idTVDate.setText(Date)
                 })
 
     }
