@@ -36,17 +36,18 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
 
         setSupportActionBar(binding.toolbar)
         val date = this.intent.getStringExtra("date").toString()
-        supportActionBar?.setTitle("⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆")
+        val title="⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆"
+        binding.toolbarTitle.setText(title)
         binding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white))
 
         database = SymptomListDatabase.getDatabase(applicationContext)
 
-        binding.fab.setOnClickListener {
+        /*binding.fab.setOnClickListener {
             NewSymptomItemDialogFragment(date).show(
                 supportFragmentManager,
                 NewSymptomItemDialogFragment.TAG
             )
-        }
+        }*/
         binding.btnSave.setOnClickListener{
             startActivity(Intent(this,MainActivity::class.java))
         }
