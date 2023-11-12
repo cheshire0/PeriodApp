@@ -9,9 +9,11 @@ import hu.bme.aut.android.periodapp.adapter.SymptomAdapter
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityTrackBinding
+import hu.bme.aut.android.periodapp.fragments.NewSymptomItemDialogFragment
 import kotlin.concurrent.thread
 
-class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListener {
+class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListener,
+    NewSymptomItemDialogFragment.NewShoppingItemDialogListener{
 
     private lateinit var binding: ActivityTrackBinding
 
@@ -30,19 +32,22 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        val date = this.intent.getStringExtra("date")
+        supportActionBar?.setTitle("⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆")
+        binding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white))
 
         database = SymptomListDatabase.getDatabase(applicationContext)
 
         binding.fab.setOnClickListener {
-            //TODO
+            NewSymptomItemDialogFragment().show(
+                supportFragmentManager,
+                NewSymptomItemDialogFragment.TAG
+            )
         }
-        initRecyclerView()
-        val date = this.intent.getStringExtra("date")
-        /*binding.idTVDate.setText(date)
-
         binding.btnSave.setOnClickListener{
             startActivity(Intent(this,MainActivity::class.java))
-        }*/
+        }
+        initRecyclerView()
     }
 
     private fun initRecyclerView() {
@@ -60,4 +65,13 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
             }
         }
     }
-}
+
+    override fun onShoppingItemCreated(newItem: SymptomItem) {
+        thread {
+            val insertId = database.symptomItemDao().insert(newItem)
+            newItem.id = insertId
+            runOnUiThread {
+                adapter.addItem(newItem)
+            }
+    }
+} }
