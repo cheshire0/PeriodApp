@@ -9,11 +9,12 @@ import androidx.room.TypeConverter
 data class SymptomItem(
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) var id: Long? = null,
     @ColumnInfo(name = "date") var date: String,
-    @ColumnInfo(name = "bleeding") var bleeding: Bleeding,
-    @ColumnInfo(name = "pain") var pain: Pain,
-    @ColumnInfo(name = "emotions") var emotions: Emotions,
-    @ColumnInfo(name = "hunger") var hunger: Hunger,
-    @ColumnInfo(name = "description") var description: String
+    @ColumnInfo(name = "type") var type: String,
+    @ColumnInfo(name = "bleeding") var bleeding: Bleeding?= null,
+    @ColumnInfo(name = "pain") var pain: Pain?= null,
+    @ColumnInfo(name = "emotions") var emotions: Emotions?= null,
+    @ColumnInfo(name = "hunger") var hunger: Hunger?= null,
+    @ColumnInfo(name = "description") var description: String?= null
 ) {
     enum class Bleeding {
         LIGHT, MEDIUM, HEAVY, SPOTTING;
@@ -34,8 +35,8 @@ data class SymptomItem(
 
             @JvmStatic
             @TypeConverter
-            fun toInt(bleeding: Bleeding): Int {
-                return bleeding.ordinal
+            fun toInt(bleeding: Bleeding?): Int {
+                return bleeding?.ordinal ?: 0
             }
         }
     }
@@ -59,8 +60,10 @@ data class SymptomItem(
 
             @JvmStatic
             @TypeConverter
-            fun toInt(pain: Pain): Int {
-                return pain.ordinal
+            fun toInt(pain: Pain?): Int {
+                if(pain!=null)
+                    return pain.ordinal
+                return 0
             }
         }
     }
@@ -84,8 +87,10 @@ data class SymptomItem(
 
             @JvmStatic
             @TypeConverter
-            fun toInt(emotions: Emotions): Int {
-                return emotions.ordinal
+            fun toInt(emotions: Emotions?): Int {
+                if(emotions!=null)
+                    return emotions.ordinal
+                return 0
             }
         }
     }
@@ -109,8 +114,10 @@ data class SymptomItem(
 
             @JvmStatic
             @TypeConverter
-            fun toInt(other: Hunger): Int {
-                return other.ordinal
+            fun toInt(other: Hunger?): Int {
+                if(other!=null)
+                    return other.ordinal
+                return 0
             }
         }
     }

@@ -32,7 +32,7 @@
         android:id="@+id/rvMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="80dp"
         tools:listitem="@layout/item_symptom_list" />
 
     <Button
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="25dp"
-        android:backgroundTint="@color/themeColor"
-        android:text="Save" />
+        android:backgroundTint="@color/gray"
+        android:text="Back" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

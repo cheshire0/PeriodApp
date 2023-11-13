@@ -11,7 +11,7 @@ import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
-class NewSymptomItemDialogFragment(var date: String)  : DialogFragment() {
+class NewSymptomItemDialogFragment(var date: String,var type: String)  : DialogFragment() {
     interface NewShoppingItemDialogListener {
         fun onShoppingItemCreated(newItem: SymptomItem)
     }
@@ -19,7 +19,6 @@ class NewSymptomItemDialogFragment(var date: String)  : DialogFragment() {
     private lateinit var listener: NewShoppingItemDialogListener
 
     private lateinit var binding: DialogNewSymptomItemBinding
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as? NewShoppingItemDialogListener
@@ -28,26 +27,34 @@ class NewSymptomItemDialogFragment(var date: String)  : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogNewSymptomItemBinding.inflate(LayoutInflater.from(context))
-        binding.spBleeding.adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.bleeding_items)
-        )
-        binding.spPain.adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.pain_items)
-        )
-        binding.spEmotions.adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.emotions_items)
-        )
-        binding.spHunger.adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.hunger_items)
-        )
+        if(type=="bleeding") {
+            binding.spBleeding.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                resources.getStringArray(R.array.bleeding_items)
+            )
+        }
+        if(type=="pain") {
+            binding.spPain.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                resources.getStringArray(R.array.pain_items)
+            )
+        }
+        if(type=="emotions") {
+            binding.spEmotions.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                resources.getStringArray(R.array.emotions_items)
+            )
+        }
+        if(type=="hunger") {
+            binding.spHunger.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                resources.getStringArray(R.array.hunger_items)
+            )
+        }
 
         return AlertDialog.Builder(requireContext())
             .setTitle(R.string.new_symptom_item)
@@ -68,10 +75,11 @@ class NewSymptomItemDialogFragment(var date: String)  : DialogFragment() {
         hunger = SymptomItem.Hunger.getByOrdinal(binding.spHunger.selectedItemPosition)
             ?: SymptomItem.Hunger.LOW,
         date=date,
-        description="bruh"
+        type="bro",
+        description =binding.etDescription.text.toString()
     )
 
     companion object {
-        const val TAG = "NewShoppingItemDialogFragment"
+        const val TAG = "NewSymptomItemDialogFragment"
     }
 }

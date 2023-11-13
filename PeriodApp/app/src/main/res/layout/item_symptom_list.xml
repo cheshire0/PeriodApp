@@ -9,42 +9,37 @@
     android:paddingRight="16dp"
     android:paddingTop="8dp">
 
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="20dp"
+        tools:src="@drawable/ic_blood_foreground" />
+
     <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvCategory"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         tools:text="Apple" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="15dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvBleeding"
+            android:id="@+id/tvSymptom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Apple" />
 
         <TextView
-            android:id="@+id/tvPain"
+            android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="My favorite fruit" />
-
-        <TextView
-            android:id="@+id/tvEmotions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Food" />
-
-        <TextView
-            android:id="@+id/tvOther"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="20 Ft" />
+            tools:text="" />
     </LinearLayout>
 
     <ImageButton

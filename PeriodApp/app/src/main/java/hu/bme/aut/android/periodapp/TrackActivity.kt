@@ -12,21 +12,35 @@ import hu.bme.aut.android.periodapp.adapter.SymptomAdapter
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityTrackBinding
+import hu.bme.aut.android.periodapp.fragments.NewBleedingItemDialogFragment
+import hu.bme.aut.android.periodapp.fragments.NewEmotionsItemDialogFragment
+import hu.bme.aut.android.periodapp.fragments.NewHungerItemDialogFragment
+import hu.bme.aut.android.periodapp.fragments.NewPainItemDialogFragment
 import hu.bme.aut.android.periodapp.fragments.NewSymptomItemDialogFragment
 import kotlin.concurrent.thread
 
 class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListener,
-    NewSymptomItemDialogFragment.NewShoppingItemDialogListener{
+    NewBleedingItemDialogFragment.NewSymptomItemDialogListener,
+    NewPainItemDialogFragment.NewSymptomItemDialogListener,
+    NewEmotionsItemDialogFragment.NewSymptomItemDialogListener,
+    NewHungerItemDialogFragment.NewSymptomItemDialogListener{
 
     private lateinit var binding: ActivityTrackBinding
 
     private lateinit var database: SymptomListDatabase
     private lateinit var adapter: SymptomAdapter
+    private lateinit var date: String
 
     override fun onItemChanged(item: SymptomItem) {
         thread {
             database.symptomItemDao().update(item)
             Log.d("MainActivity", "ShoppingItem update was successful")
+        }
+    }
+    override fun onItemDeleted(item: SymptomItem) {
+        thread {
+            database.symptomItemDao().deleteItem(item)
+            Log.d("MainActivity", "ShoppingItem delete was successful")
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,19 +49,13 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        val date = this.intent.getStringExtra("date").toString()
+        date = this.intent.getStringExtra("date").toString()
         val title="⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆"
         binding.toolbarTitle.setText(title)
         binding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white))
 
         database = SymptomListDatabase.getDatabase(applicationContext)
 
-        /*binding.fab.setOnClickListener {
-            NewSymptomItemDialogFragment(date).show(
-                supportFragmentManager,
-                NewSymptomItemDialogFragment.TAG
-            )
-        }*/
         binding.btnSave.setOnClickListener{
             startActivity(Intent(this,MainActivity::class.java))
         }
@@ -65,12 +73,12 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         thread {
             val items = database.symptomItemDao().getAll()
             runOnUiThread {
-                adapter.update(items)
+                adapter.update(items,date)
             }
         }
     }
 
-    override fun onShoppingItemCreated(newItem: SymptomItem) {
+    override fun onSymptomItemCreated(newItem: SymptomItem) {
         thread {
             val insertId = database.symptomItemDao().insert(newItem)
             newItem.id = insertId
@@ -98,11 +106,31 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_bleeding -> {
-                item.isChecked = true
+                NewBleedingItemDialogFragment(date).show(
+                    supportFragmentManager,
+                    NewBleedingItemDialogFragment.TAG
+                )
                 true
             }
             R.id.menu_pain -> {
-                item.isChecked = true
+                NewPainItemDialogFragment(date).show(
+                    supportFragmentManager,
+                    NewPainItemDialogFragment.TAG
+                )
+                true
+            }
+            R.id.menu_emotions -> {
+                NewEmotionsItemDialogFragment(date).show(
+                    supportFragmentManager,
+                    NewSymptomItemDialogFragment.TAG
+                )
+                true
+            }
+            R.id.menu_hunger -> {
+                NewHungerItemDialogFragment(date).show(
+                    supportFragmentManager,
+                    NewSymptomItemDialogFragment.TAG
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)
