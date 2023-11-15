@@ -5,6 +5,8 @@ import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.widget.CalendarView.OnDateChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import hu.bme.aut.android.periodapp.databinding.ActivityMainBinding
 import java.util.Calendar
 
@@ -27,14 +29,13 @@ class MainActivity : AppCompatActivity() {
         val format = SimpleDateFormat("yyyy-MM-dd")
         binding.idTVDate.setText(format.format(today))
 
+        binding.calendarView.addDecorator(CurrentDayDecorator(this@MainActivity, CalendarDay.today()))
         binding.calendarView
-            .setOnDateChangeListener(
-                OnDateChangeListener { view, year, month, dayOfMonth ->
-                    val Date = (year.toString() + "-"
-                            + (month + 1) + "-" + dayOfMonth)
+            .setOnDateChangedListener(
+                OnDateSelectedListener { view, calDay, bool ->
+                    val Date = (calDay.year.toString() + "-" + (calDay.month) + "-" + calDay.day)
 
                     binding.idTVDate.setText(Date)
                 })
-
     }
 }

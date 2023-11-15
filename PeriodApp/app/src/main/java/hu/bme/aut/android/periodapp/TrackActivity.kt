@@ -16,7 +16,6 @@ import hu.bme.aut.android.periodapp.fragments.NewBleedingItemDialogFragment
 import hu.bme.aut.android.periodapp.fragments.NewEmotionsItemDialogFragment
 import hu.bme.aut.android.periodapp.fragments.NewHungerItemDialogFragment
 import hu.bme.aut.android.periodapp.fragments.NewPainItemDialogFragment
-import hu.bme.aut.android.periodapp.fragments.NewSymptomItemDialogFragment
 import kotlin.concurrent.thread
 
 class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListener,
@@ -51,14 +50,10 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         setSupportActionBar(binding.toolbar)
         date = this.intent.getStringExtra("date").toString()
         val title="⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆"
-        binding.toolbarTitle.setText(title)
-        binding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white))
+        binding.toolbarTitle.text = title
+        binding.toolbar.setTitleTextColor(resources.getColor(android.R.color.white))
 
         database = SymptomListDatabase.getDatabase(applicationContext)
-
-        binding.btnSave.setOnClickListener{
-            startActivity(Intent(this,MainActivity::class.java))
-        }
         initRecyclerView()
     }
 
@@ -122,14 +117,14 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
             R.id.menu_emotions -> {
                 NewEmotionsItemDialogFragment(date).show(
                     supportFragmentManager,
-                    NewSymptomItemDialogFragment.TAG
+                    NewEmotionsItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_hunger -> {
                 NewHungerItemDialogFragment(date).show(
                     supportFragmentManager,
-                    NewSymptomItemDialogFragment.TAG
+                    NewHungerItemDialogFragment.TAG
                 )
                 true
             }

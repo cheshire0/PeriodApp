@@ -10,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.databinding.DialogNewBleedingItemBinding
-import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
 class NewBleedingItemDialogFragment(var date: String)  : DialogFragment() {
     interface NewSymptomItemDialogListener {

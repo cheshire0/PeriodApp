@@ -35,13 +35,4 @@
         android:layout_marginTop="80dp"
         tools:listitem="@layout/item_symptom_list" />
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="25dp"
-        android:backgroundTint="@color/gray"
-        android:text="Back" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

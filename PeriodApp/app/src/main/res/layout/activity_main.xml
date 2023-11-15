@@ -12,20 +12,31 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Current Date"
+        android:text="Period Tracker"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Add CalendarView to display the Calendar -->
+    <!--
     <CalendarView
         android:id="@+id/calendarView"
         android:theme="@style/CalenderViewCustom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idTVDate"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp" />-->
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_showOtherDates="all"
+        app:mcv_firstDayOfWeek="monday"
+        app:mcv_selectionColor="@color/themeColor"
+        android:layout_below="@id/idTVDate"
+        android:layout_marginTop="30dp"
+        />
 
     <Button
         android:id="@+id/btnTrack"
