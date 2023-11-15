@@ -9,9 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
-import hu.bme.aut.android.periodapp.databinding.DialogNewBleedingItemBinding
+import hu.bme.aut.android.periodapp.data.categories.Pain
 import hu.bme.aut.android.periodapp.databinding.DialogNewPainItemBinding
-import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
 class NewPainItemDialogFragment(var date: String)  : DialogFragment() {
     interface NewSymptomItemDialogListener {
@@ -46,10 +45,9 @@ class NewPainItemDialogFragment(var date: String)  : DialogFragment() {
             .create()
     }
     private fun getSymptomItem() = SymptomItem(
-        pain = SymptomItem.Pain.getByOrdinal(binding.spPain.selectedItemPosition)
-            ?: SymptomItem.Pain.CRAMPS,
-        date=date,
-        type="PAIN",
+        type = Pain.getByOrdinal(binding.spPain.selectedItemPosition).toString(),
+        date =date,
+        category ="PAIN",
         description =binding.etDescription.text.toString()
     )
 

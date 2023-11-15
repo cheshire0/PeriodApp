@@ -9,9 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
-import hu.bme.aut.android.periodapp.databinding.DialogNewBleedingItemBinding
+import hu.bme.aut.android.periodapp.data.categories.Hunger
 import hu.bme.aut.android.periodapp.databinding.DialogNewHungerItemBinding
-import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
 class NewHungerItemDialogFragment(var date: String)  : DialogFragment() {
     interface NewSymptomItemDialogListener {
@@ -46,10 +45,9 @@ class NewHungerItemDialogFragment(var date: String)  : DialogFragment() {
             .create()
     }
     private fun getSymptomItem() = SymptomItem(
-        hunger = SymptomItem.Hunger.getByOrdinal(binding.spHunger.selectedItemPosition)
-            ?: SymptomItem.Hunger.LOW,
-        date=date,
-        type="HUNGER",
+        type = Hunger.getByOrdinal(binding.spHunger.selectedItemPosition).toString(),
+        date =date,
+        category ="HUNGER",
         description =binding.etDescription.text.toString()
     )
 

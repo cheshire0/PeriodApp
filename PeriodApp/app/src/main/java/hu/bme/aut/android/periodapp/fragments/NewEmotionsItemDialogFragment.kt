@@ -9,8 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
+import hu.bme.aut.android.periodapp.data.categories.Emotions
 import hu.bme.aut.android.periodapp.databinding.DialogNewEmotionsItemBinding
-import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
 class NewEmotionsItemDialogFragment(var date: String)  : DialogFragment() {
     interface NewSymptomItemDialogListener {
@@ -44,10 +44,9 @@ class NewEmotionsItemDialogFragment(var date: String)  : DialogFragment() {
             .create()
     }
     private fun getSymptomItem() = SymptomItem(
-        emotions = SymptomItem.Emotions.getByOrdinal(binding.spEmotions.selectedItemPosition)
-            ?: SymptomItem.Emotions.HAPPY,
-        date=date,
-        type="EMOTIONS",
+        type = Emotions.getByOrdinal(binding.spEmotions.selectedItemPosition).toString(),
+        date =date,
+        category ="EMOTIONS",
         description =binding.etDescription.text.toString()
     )
 

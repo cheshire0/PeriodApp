@@ -7,10 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [SymptomItem::class], version = 1)
-@TypeConverters(value = [SymptomItem.Bleeding::class,
-                         SymptomItem.Pain::class,
-                         SymptomItem.Emotions::class,
-                         SymptomItem.Hunger::class])
 abstract class SymptomListDatabase : RoomDatabase() {
     abstract fun symptomItemDao(): SymptomItemDao
 

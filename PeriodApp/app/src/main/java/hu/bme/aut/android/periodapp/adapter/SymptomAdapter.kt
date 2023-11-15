@@ -23,19 +23,14 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
             delete(symptomItem)
             listener.onItemDeleted(symptomItem)
         }
-        holder.binding.tvCategory.text =symptomItem.type
-        when(symptomItem.type){
+        holder.binding.tvCategory.text =symptomItem.category
+        when(symptomItem.category){
             "BLEEDING"->holder.binding.ivIcon.setImageResource(R.drawable.ic_blood_foreground)
             "PAIN"->holder.binding.ivIcon.setImageResource(R.drawable.ic_pain_foreground)
             "EMOTIONS"->holder.binding.ivIcon.setImageResource(R.drawable.ic_emotion_foreground)
             "HUNGER"->holder.binding.ivIcon.setImageResource(R.drawable.ic_hunger_foreground)
         }
-        when(symptomItem.type){
-            "BLEEDING"->holder.binding.tvSymptom.text = symptomItem.bleeding?.name ?: null
-            "PAIN"->holder.binding.tvSymptom.text = symptomItem.pain?.name ?: null
-            "EMOTIONS"->holder.binding.tvSymptom.text = symptomItem.emotions?.name ?: null
-            "HUNGER"->holder.binding.tvSymptom.text = symptomItem.hunger?.name ?: null
-        }
+        holder.binding.tvSymptom.text = symptomItem.type
         holder.binding.tvDescription.text = symptomItem.description
     }
 

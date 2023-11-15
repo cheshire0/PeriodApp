@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.periodapp.R
 import hu.bme.aut.android.periodapp.data.SymptomItem
+import hu.bme.aut.android.periodapp.data.categories.Bleeding
 import hu.bme.aut.android.periodapp.databinding.DialogNewBleedingItemBinding
 
 class NewBleedingItemDialogFragment(var date: String)  : DialogFragment() {
@@ -44,10 +45,9 @@ class NewBleedingItemDialogFragment(var date: String)  : DialogFragment() {
             .create()
     }
     private fun getSymptomItem() = SymptomItem(
-        bleeding = SymptomItem.Bleeding.getByOrdinal(binding.spBleeding.selectedItemPosition)
-            ?: SymptomItem.Bleeding.SPOTTING,
-        date=date,
-        type="BLEEDING",
+        type = Bleeding.getByOrdinal(binding.spBleeding.selectedItemPosition).toString(),
+        date =date,
+        category ="BLEEDING",
         description =binding.etDescription.text.toString()
     )
 
