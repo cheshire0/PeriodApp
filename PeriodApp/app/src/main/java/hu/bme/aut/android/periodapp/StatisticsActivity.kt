@@ -34,32 +34,20 @@ class StatisticsActivity: AppCompatActivity() {
             var currP=0
             var currC=0
             var currDate: String
-            var item = itemIterator.next()
-            var dates: List<String>
+            var dates= mutableListOf<String>()
 
+            var daaate=""
             while (itemIterator.hasNext()) {
-                currDate=item.date
-                var wasPeriodDay=false
-
-                while(item.date==currDate) {
-                    if (item.category == "BLEEDING") {
-                        wasPeriodDay = true
-                        currP++
-                        if(currP==1) n++
-                        //onto the next day
-                        while(item.date==currDate) item=itemIterator.next()
-                        break
-                    }
-                    item = itemIterator.next()
-                }
-                if(!wasPeriodDay){
-                    sumP+=currP
-                    currP=0
-
+                var item = itemIterator.next()
+                dates.sort()
+                if(item.category=="BLEEDING") {
+                    daaate=daaate+item.date
+                    if (dates.isEmpty() || dates.last() != item.date)
+                        dates.add(item.date)
                 }
             }
-            binding.tvPL.setText((sumP/n).toString())
-            binding.tvPL.setText(currP.toString()+" "+sumP+" "+n)
+            //binding.tvPL.setText((sumP/n).toString())
+            binding.tvPL.setText(daaate)
         }
     }
 }
