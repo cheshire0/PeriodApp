@@ -10,6 +10,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import hu.bme.aut.android.periodapp.adapter.SymptomAdapter
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityMainBinding
@@ -38,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, StatisticsActivity::class.java)
             startActivity(intent)
         }
-        decorate()
 
         val today = Calendar.getInstance().timeInMillis
         val format = SimpleDateFormat("yyyy-MM-dd")
@@ -53,24 +53,32 @@ class MainActivity : AppCompatActivity() {
                 })
     }
 
+    override fun onResume() {
+        super.onResume()
+        decorate()
+    }
+
     private fun decorate(){
         thread {
             val items = database.symptomItemDao().getAll()
-            val itemIterator = items.iterator()
-            while (itemIterator.hasNext()) {
-                val item = itemIterator.next()
-                if (item.category == "BLEEDING") {
-                    val year = item.date[0]
-                        .toString() + item.date[1] + item.date[2] + item.date[3]
-                    val month = item.date[5].toString() + item.date[6]
-                    var day = item.date[8].toString()
-                    if (item.date.length > 9) day += item.date[9]
-                    binding.calendarView.addDecorator(
-                        CurrentDayDecorator(
-                            this@MainActivity,
-                            CalendarDay.from(year.toInt(), month.toInt(), day.toInt())
+            runOnUiThread {
+                binding.calendarView.removeDecorators()
+                val itemIterator = items.iterator()
+                while (itemIterator.hasNext()) {
+                    val item = itemIterator.next()
+                    if (item.category == "BLEEDING") {
+                        val year = item.date[0]
+                            .toString() + item.date[1] + item.date[2] + item.date[3]
+                        val month = item.date[5].toString() + item.date[6]
+                        var day = item.date[8].toString()
+                        if (item.date.length > 9) day += item.date[9]
+                        binding.calendarView.addDecorator(
+                            CurrentDayDecorator(
+                                this@MainActivity,
+                                CalendarDay.from(year.toInt(), month.toInt(), day.toInt())
+                            )
                         )
-                    )
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ class CurrentDayDecorator(context: Activity?, currentDay: CalendarDay) : DayView
     private val drawable: Drawable?
     var myDay = currentDay
     override fun shouldDecorate(day: CalendarDay): Boolean {
-        return day == myDay
+        return myDay==day
     }
 
     override fun decorate(view: DayViewFacade) {

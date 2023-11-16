@@ -37,6 +37,7 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
     fun addItem(item: SymptomItem) {
         items.add(item)
         notifyItemInserted(items.size - 1)
+        listener.onItemChanged(item)
     }
 
     fun update(symptomItems: List<SymptomItem>,date:String) {
