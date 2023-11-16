@@ -1,16 +1,15 @@
 package hu.bme.aut.android.periodapp
 
-import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.prolificinteractive.materialcalendarview.CalendarDay
-import hu.bme.aut.android.periodapp.data.SymptomItemDao
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityStatisticsBinding
+import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 class StatisticsActivity: AppCompatActivity() {
@@ -70,7 +69,7 @@ class StatisticsActivity: AppCompatActivity() {
                 lastDate=date
             }
             sumP+=currP
-            
+
             binding.tvPL.text = (sumP/n).toString()+" days"
             binding.tvACL.text = (sumC/(n-1)).toString()+" days"
             val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -85,6 +84,8 @@ class StatisticsActivity: AppCompatActivity() {
 
         val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val date = LocalDate.parse(string,format)
-        return date.dayOfYear
+        val firstTimestampInclusive = LocalDate.of(1900, 1, 1)
+        val numberOfDays = Duration.between(firstTimestampInclusive.atStartOfDay(), date.atStartOfDay()).toDays()
+        return numberOfDays.toInt()
     }
 }
