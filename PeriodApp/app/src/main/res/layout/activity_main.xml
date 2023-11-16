@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/gray"
         android:text="Statistics" />
 
@@ -71,5 +71,19 @@
         android:textSize="10sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="198dp"
+        android:layout_height="228dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/lilies" />
+
+    <ImageView
+        android:layout_width="198dp"
+        android:layout_height="228dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/lilies_flipped" />
 
 </RelativeLayout>
