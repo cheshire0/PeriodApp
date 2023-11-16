@@ -73,14 +73,14 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="198dp"
+        android:layout_width="197dp"
         android:layout_height="228dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/lilies" />
 
     <ImageView
-        android:layout_width="198dp"
+        android:layout_width="197dp"
         android:layout_height="228dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
