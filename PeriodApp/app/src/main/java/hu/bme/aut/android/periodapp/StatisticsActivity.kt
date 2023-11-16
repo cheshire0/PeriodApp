@@ -70,11 +70,15 @@ class StatisticsActivity: AppCompatActivity() {
             }
             sumP+=currP
 
-            binding.tvPL.text = (sumP/n).toString()+" days"
-            binding.tvACL.text = (sumC/(n-1)).toString()+" days"
+            var div=1
+            if(n>0)div=n
+            binding.tvPL.text = (sumP/div).toString()+" days"
+            div=1
+            if(n-1>0)div=n-1
+            binding.tvACL.text = (sumC/div).toString()+" days"
             val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val date = LocalDate.parse(firstDayOfPeriod,format)
-            binding.tvNPD.text = format.format(date.plusDays((sumC/(n-1)).toLong()))
+            binding.tvNPD.text = format.format(date.plusDays((sumC/div).toLong()))
         }
     }
 

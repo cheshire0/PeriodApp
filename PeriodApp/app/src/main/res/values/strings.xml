@@ -9,6 +9,8 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="more">New Symptom</string>
+    <string name="channel_name">Period notif channel</string>
+    <string name="channel_description">Notifies when period starts</string>
 
     <string-array name="bleeding_items">
         <item>Light</item>
