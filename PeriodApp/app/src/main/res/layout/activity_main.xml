@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/calendarView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:backgroundTint="@color/themeColor"
         android:text="Track" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="90dp"
         android:backgroundTint="@color/gray"
         android:text="Statistics" />
 

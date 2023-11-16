@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: SymptomListDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding=ActivityMainBinding.inflate(layoutInflater)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(binding.root)
