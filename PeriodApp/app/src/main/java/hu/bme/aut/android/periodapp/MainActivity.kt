@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("date", binding.idTVDate.text)
             startActivity(intent)
         }
+        binding.btnStats.setOnClickListener{
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+        }
         decorate()
 
         val today = Calendar.getInstance().timeInMillis
@@ -46,8 +50,8 @@ class MainActivity : AppCompatActivity() {
     private fun decorate(){
         thread {
             val items = database.symptomItemDao().getAll()
-            val itemIterator = items?.iterator() ?: null
-            while (itemIterator != null && itemIterator.hasNext()) {
+            val itemIterator = items.iterator()
+            while (itemIterator.hasNext()) {
                 val item = itemIterator.next()
                 if (item.category == "BLEEDING") {
                     val year = item.date.get(0)
