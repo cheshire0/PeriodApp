@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity() {
 
         val today = Calendar.getInstance().timeInMillis
         val format = SimpleDateFormat("yyyy-MM-dd")
-        binding.idTVDate.setText(format.format(today))
+        binding.idTVDate.text = format.format(today)
 
         binding.calendarView
             .setOnDateChangedListener(
-                OnDateSelectedListener { view, calDay, bool ->
-                    val Date = (calDay.year.toString() + "-" + (calDay.month) + "-" + calDay.day)
+                OnDateSelectedListener { _, calDay, _ ->
+                    val date = (calDay.year.toString() + "-" + (calDay.month) + "-" + calDay.day)
 
-                    binding.idTVDate.setText(Date)
+                    binding.idTVDate.text = date
                 })
     }
 
@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity() {
             while (itemIterator.hasNext()) {
                 val item = itemIterator.next()
                 if (item.category == "BLEEDING") {
-                    val year = item.date.get(0)
-                        .toString() + item.date.get(1) + item.date.get(2) + item.date.get(3)
-                    val month = item.date.get(5).toString() + item.date.get(6)
-                    var day = item.date.get(8).toString()
-                    if (item.date.length > 9) day = day + item.date.get(9)
+                    val year = item.date[0]
+                        .toString() + item.date[1] + item.date[2] + item.date[3]
+                    val month = item.date[5].toString() + item.date[6]
+                    var day = item.date[8].toString()
+                    if (item.date.length > 9) day += item.date[9]
                     binding.calendarView.addDecorator(
                         CurrentDayDecorator(
                             this@MainActivity,

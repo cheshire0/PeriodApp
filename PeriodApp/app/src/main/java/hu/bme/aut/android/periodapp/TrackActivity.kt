@@ -49,7 +49,7 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
 
         setSupportActionBar(binding.toolbar)
         date = this.intent.getStringExtra("date").toString()
-        val title="⋆｡ﾟ☁︎ ｡⋆  "+date+"  ｡ ﾟ☾ ﾟ｡⋆"
+        val title= "⋆｡ﾟ☁︎ ｡⋆  $date  ｡ ﾟ☾ ﾟ｡⋆"
         binding.toolbarTitle.text = title
         binding.toolbar.setTitleTextColor(resources.getColor(android.R.color.white))
 
