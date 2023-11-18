@@ -15,7 +15,7 @@ interface SymptomItemDao {
     @Insert
     fun insert(shoppingItems: SymptomItem): Long
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     fun update(shoppingItem: SymptomItem)
 
     @Delete

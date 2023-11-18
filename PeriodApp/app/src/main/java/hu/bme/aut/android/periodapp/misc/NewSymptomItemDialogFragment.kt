@@ -3,6 +3,7 @@ package hu.bme.aut.android.periodapp.misc
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
@@ -43,6 +44,7 @@ class NewSymptomItemDialogFragment(
         )
 
         if(item!=null) { setSymptomItem(item!!) }
+        //Log.d(TAG,binding.spSymptom.selectedItem.toString())
 
         return AlertDialog.Builder(requireContext())
             .setTitle(R.string.new_symptom_item)
@@ -55,9 +57,10 @@ class NewSymptomItemDialogFragment(
             .create()
     }
 
+    private fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
     private fun setSymptomItem(item: SymptomItem) {
         binding.tvSymptom.text=category
-        binding.spSymptom.setSelection((binding.spSymptom.adapter as ArrayAdapter<String>).getPosition(item.type))
+        binding.spSymptom.setSelection(types.indexOf(item.type.lowercase().titlecaseFirstChar().replace('_',' ')))
         binding.etDescription.setText(item.description)
     }
 

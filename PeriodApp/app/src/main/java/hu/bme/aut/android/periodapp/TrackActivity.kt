@@ -36,7 +36,7 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         }
     }
 
-    fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
+    private fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
 
     override fun onItemEdited(item: SymptomItem) {
         var array=resources.getStringArray(R.array.bleeding_items)
