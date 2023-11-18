@@ -54,7 +54,6 @@ class StatisticsActivity: AppCompatActivity() {
         prediction= LocalDate.now()
         calculate()
         create(savedInstanceState)
-        setNotification()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -109,11 +108,13 @@ class StatisticsActivity: AppCompatActivity() {
             val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val date = LocalDate.parse(firstDayOfPeriod,format)
             prediction=date.plusDays((sumC/div).toLong())
-            if(prediction.isBefore(LocalDate.now()))
-                prediction= LocalDate.now()
+            if(prediction.isBefore(LocalDate.now())) {
+                prediction = LocalDate.now()
+                prediction=prediction.plusDays((1).toLong())
+            }
             binding.tvNPD.text = format.format(prediction)
             //alert reasons
-            prediction=date.minusDays((1).toLong())
+            prediction=prediction.minusDays((1).toLong())
         }
     }
 
@@ -157,7 +158,7 @@ class StatisticsActivity: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setNotification() {
         var calendar=Calendar.getInstance()
-        calendar.set(prediction.year,prediction.month.value,prediction.dayOfYear,18,50,0)
+        calendar.set(prediction.year,prediction.month.value,prediction.dayOfYear,10,0,0)
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val thuReq: Long = Calendar.getInstance().timeInMillis + 1
         var reqReqCode = thuReq.toInt()
@@ -165,8 +166,8 @@ class StatisticsActivity: AppCompatActivity() {
         val pendingIntent = PendingIntent.getBroadcast(this, reqReqCode, intent,
             PendingIntent.FLAG_IMMUTABLE)
 
-        calendar=Calendar.getInstance()
-        calendar.add(Calendar.SECOND, 15);
+        //calendar=Calendar.getInstance()
+        //calendar.add(Calendar.SECOND, 15);
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
@@ -189,28 +190,15 @@ class StatisticsActivity: AppCompatActivity() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    /**
-     * Shows a notification to user.
-     *
-     * The notification won't appear if the user doesn't grant notification permission first.
-     */
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     private fun showDummyNotification() {
         Snackbar.make(
             findViewById<View>(android.R.id.content).rootView,
             "You will get notified when your next period might start!",
             Snackbar.LENGTH_LONG
-        ).show()/*
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_blood_foreground)
-            .setContentTitle("Period might start soon-ish\uD83E\uDD14")
-            .setContentText("Stay tuned\uD83D\uDE43\uD83E\uDD72")
-            .setColor(ContextCompat.getColor(this,R.color.themeColor))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-
-        with(NotificationManagerCompat.from(this)) {
-            notify(1, builder.build())
-        }*/
+        ).show()
+        setNotification()
     }
 
     companion object {
