@@ -17,7 +17,7 @@ import hu.bme.aut.android.periodapp.databinding.DialogNewSymptomItemBinding
 
 class NewSymptomItemDialogFragment(
     var date: String, var category: String, private var types: Array<String>,
-    var item: SymptomItem? =null) : DialogFragment() {
+    var item: SymptomItem? ) : DialogFragment() {
     private lateinit var binding: DialogNewSymptomItemBinding
     private lateinit var listener: NewSymptomItemDialogListener
 
@@ -42,7 +42,7 @@ class NewSymptomItemDialogFragment(
             types
         )
 
-        item?.let { setSymptomItem(it) }
+        if(item!=null) { setSymptomItem(item!!) }
 
         return AlertDialog.Builder(requireContext())
             .setTitle(R.string.new_symptom_item)

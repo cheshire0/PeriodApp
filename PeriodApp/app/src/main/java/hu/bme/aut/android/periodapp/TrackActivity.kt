@@ -117,28 +117,28 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_bleeding -> {
-                NewSymptomItemDialogFragment(date,resources.getString(R.string.bleeding),resources.getStringArray(R.array.bleeding_items)).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.bleeding),resources.getStringArray(R.array.bleeding_items),null).show(
                     supportFragmentManager,
                     NewSymptomItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_pain -> {
-                NewSymptomItemDialogFragment(date,resources.getString(R.string.pain),resources.getStringArray(R.array.pain_items)).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.pain),resources.getStringArray(R.array.pain_items),null).show(
                     supportFragmentManager,
                     NewSymptomItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_emotions -> {
-                NewSymptomItemDialogFragment(date,resources.getString(R.string.emotions),resources.getStringArray(R.array.emotions_items)).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.emotions),resources.getStringArray(R.array.emotions_items),null).show(
                     supportFragmentManager,
                     NewSymptomItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_hunger -> {
-                NewSymptomItemDialogFragment(date,resources.getString(R.string.hunger),resources.getStringArray(R.array.hunger_items)).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.hunger),resources.getStringArray(R.array.hunger_items),null).show(
                     supportFragmentManager,
                     NewSymptomItemDialogFragment.TAG
                 )
