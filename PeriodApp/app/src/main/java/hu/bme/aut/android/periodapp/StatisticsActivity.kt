@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityStatisticsBinding
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -31,6 +32,7 @@ class StatisticsActivity: AppCompatActivity() {
     private lateinit var binding: ActivityStatisticsBinding
     private lateinit var database: SymptomListDatabase
     private lateinit var prediction: LocalDate
+    private var notif: Calendar? = null
 
     @RequiresApi(33)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,12 +111,11 @@ class StatisticsActivity: AppCompatActivity() {
             val date = LocalDate.parse(firstDayOfPeriod,format)
             prediction=date.plusDays((sumC/div).toLong())
             if(prediction.isBefore(LocalDate.now())) {
-                prediction = LocalDate.now()
-                prediction=prediction.plusDays((1).toLong())
+                prediction = LocalDate.now().plusDays(1)
             }
             binding.tvNPD.text = format.format(prediction)
             //alert reasons
-            prediction=prediction.minusDays((1).toLong())
+            //prediction=prediction.minusDays((1).toLong())
         }
     }
 
@@ -158,13 +159,14 @@ class StatisticsActivity: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setNotification() {
         var calendar=Calendar.getInstance()
-        calendar.set(prediction.year,prediction.month.value,prediction.dayOfYear,10,0,0)
+        calendar.set(prediction.year,prediction.month.value-1,prediction.dayOfMonth,10,0,0)
+
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val thuReq: Long = Calendar.getInstance().timeInMillis + 1
         var reqReqCode = thuReq.toInt()
         val intent = Intent(this, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, reqReqCode, intent,
-            PendingIntent.FLAG_IMMUTABLE)
+            PendingIntent.FLAG_MUTABLE)
 
         //calendar=Calendar.getInstance()
         //calendar.add(Calendar.SECOND, 15);
@@ -173,6 +175,7 @@ class StatisticsActivity: AppCompatActivity() {
             calendar.timeInMillis,
             pendingIntent
         )
+        notif=calendar
     }
 
     /**
@@ -193,12 +196,20 @@ class StatisticsActivity: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     private fun showDummyNotification() {
+        var text=""
+        if(notif==null || notif!!.before(LocalDate.now())) {
+            text = "You will get notified when your next period might start!"
+            setNotification()
+        }
+        else {
+            val format = SimpleDateFormat("yyyy-MM-dd")
+            text= "You've already set a notification for "+ format.format(notif!!.time)
+        }
         Snackbar.make(
             findViewById<View>(android.R.id.content).rootView,
-            "You will get notified when your next period might start!",
+            text,
             Snackbar.LENGTH_LONG
         ).show()
-        setNotification()
     }
 
     companion object {
