@@ -44,7 +44,6 @@ class NewSymptomItemDialogFragment(
         )
 
         if(item!=null) { setSymptomItem(item!!) }
-        //Log.d(TAG,binding.spSymptom.selectedItem.toString())
 
         return AlertDialog.Builder(requireContext())
             .setTitle(R.string.new_symptom_item)

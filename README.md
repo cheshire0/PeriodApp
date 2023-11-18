@@ -32,6 +32,6 @@ Az alkalmazás 3 fő képernyővel rendelkezik: MainActivity, StatisticsActivity
 
 MainActivity: Itt található egy Material Calendar, amin a napok alatt piros pötty jelenik meg, ha aznapra van vérzésről bejegyzés. Innen lehet napot választani, majd arra a napra bejegyzést készíteni/törölni a 'Track' gombra nyomva, illetve a 'Statistics' gombbal meg lehet nézni a statisztikákat.
 
-TrackActivity: A személyre szabott ToolBar jobb felső sarkán lévő gombra nyomva a napi bejegyzésekhez adhatunk az opciók közül bármit. A létrehozott bejegyzéseket a jobb oldali 'X'-ra nyomva lehet törölni.
+TrackActivity: A személyre szabott ToolBar jobb felső sarkán lévő gombra nyomva a napi bejegyzésekhez adhatunk az opciók közül bármit. A létrehozott bejegyzéseket a jobb oldali 'X'-ra nyomva lehet törölni, a ceruza ikonra nyomva pedig szerkeszteni.
 
-StatisticsActivity: Látható az átlagos ciklushossz, menstruációhossz, illetve ezek alapján egy becslés a következő menstruálás kezdetére.
+StatisticsActivity: Látható az átlagos ciklushossz, menstruációhossz, illetve ezek alapján egy becslés a következő menstruálás kezdetére. A harang gombra nyomva beállíthatunk egy értesítést a következő menstruálás kezdetére.
