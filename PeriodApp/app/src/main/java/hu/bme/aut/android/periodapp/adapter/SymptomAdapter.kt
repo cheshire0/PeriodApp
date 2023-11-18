@@ -67,7 +67,7 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
         val n=items.indexOf(oldItem)
         items.removeAt(n)
         items.add(n,shoppingItem)
-        notifyItemChanged(n)
+        listener.onItemChanged(shoppingItem)
     }
 
     override fun getItemCount(): Int = items.size

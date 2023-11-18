@@ -96,9 +96,7 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
     override fun onSymptomItemEdited(newItem: SymptomItem, oldItem: SymptomItem) {
         //onSymptomItemCreated(newItem)
         //onItemDeleted(oldItem)
-        Thread{
-            database.symptomItemDao().update(newItem)
-        }
+        newItem.id=oldItem.id
         adapter.edit(newItem,oldItem)
     }
 

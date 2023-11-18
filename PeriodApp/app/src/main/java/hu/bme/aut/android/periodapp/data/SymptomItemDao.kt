@@ -3,6 +3,7 @@ package hu.bme.aut.android.periodapp.data
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
@@ -14,7 +15,7 @@ interface SymptomItemDao {
     @Insert
     fun insert(shoppingItems: SymptomItem): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(shoppingItem: SymptomItem)
 
     @Delete
