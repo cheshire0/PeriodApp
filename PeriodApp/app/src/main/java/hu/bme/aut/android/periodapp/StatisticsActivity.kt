@@ -2,22 +2,20 @@ package hu.bme.aut.android.periodapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
@@ -25,12 +23,14 @@ import hu.bme.aut.android.periodapp.databinding.ActivityStatisticsBinding
 import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import kotlin.concurrent.thread
 
 class StatisticsActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityStatisticsBinding
     private lateinit var database: SymptomListDatabase
+    private lateinit var prediction: LocalDate
 
     @RequiresApi(33)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +51,10 @@ class StatisticsActivity: AppCompatActivity() {
             }
         }
 
+        prediction= LocalDate.now()
         calculate()
         create(savedInstanceState)
+        setNotification()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -106,7 +108,12 @@ class StatisticsActivity: AppCompatActivity() {
             binding.tvACL.text = (sumC/div).toString()+" days"
             val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val date = LocalDate.parse(firstDayOfPeriod,format)
-            binding.tvNPD.text = format.format(date.plusDays((sumC/div).toLong()))
+            prediction=date.plusDays((sumC/div).toLong())
+            if(prediction.isBefore(LocalDate.now()))
+                prediction= LocalDate.now()
+            binding.tvNPD.text = format.format(prediction)
+            //alert reasons
+            prediction=date.minusDays((1).toLong())
         }
     }
 
@@ -145,6 +152,28 @@ class StatisticsActivity: AppCompatActivity() {
         createNotificationChannel()
     }
 
+    private lateinit var alarmManager: AlarmManager
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setNotification() {
+        var calendar=Calendar.getInstance()
+        calendar.set(prediction.year,prediction.month.value,prediction.dayOfYear,18,50,0)
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val thuReq: Long = Calendar.getInstance().timeInMillis + 1
+        var reqReqCode = thuReq.toInt()
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, reqReqCode, intent,
+            PendingIntent.FLAG_IMMUTABLE)
+
+        calendar=Calendar.getInstance()
+        calendar.add(Calendar.SECOND, 15);
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+    }
+
     /**
      * Creates Notification Channel (required for API level >= 26) before sending any notification.
      */
@@ -167,15 +196,21 @@ class StatisticsActivity: AppCompatActivity() {
      */
     @SuppressLint("MissingPermission")
     private fun showDummyNotification() {
+        Snackbar.make(
+            findViewById<View>(android.R.id.content).rootView,
+            "You will get notified when your next period might start!",
+            Snackbar.LENGTH_LONG
+        ).show()/*
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Congratulations! 🎉🎉🎉")
-            .setContentText("You have post a notification to Android 13!!!")
+            .setSmallIcon(R.drawable.ic_blood_foreground)
+            .setContentTitle("Period might start soon-ish\uD83E\uDD14")
+            .setContentText("Stay tuned\uD83D\uDE43\uD83E\uDD72")
+            .setColor(ContextCompat.getColor(this,R.color.themeColor))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(this)) {
             notify(1, builder.build())
-        }
+        }*/
     }
 
     companion object {
