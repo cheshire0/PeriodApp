@@ -23,7 +23,7 @@ class NewSymptomItemDialogFragment(
 
     interface NewSymptomItemDialogListener {
         fun onSymptomItemCreated(newItem: SymptomItem)
-        fun onItemEdited(newItem: SymptomItem,oldItem: SymptomItem)
+        fun onSymptomItemEdited(newItem: SymptomItem, oldItem: SymptomItem)
     }
 
     override fun onAttach(context: Context) {
@@ -48,7 +48,7 @@ class NewSymptomItemDialogFragment(
             .setTitle(R.string.new_symptom_item)
             .setView(binding.root)
             .setPositiveButton(R.string.button_ok) { dialogInterface, i ->
-                if(item!=null) listener.onItemEdited(getSymptomItem(), item!!)
+                if(item!=null) listener.onSymptomItemEdited(getSymptomItem(), item!!)
                 else listener.onSymptomItemCreated(getSymptomItem())
             }
             .setNegativeButton(R.string.button_cancel, null)

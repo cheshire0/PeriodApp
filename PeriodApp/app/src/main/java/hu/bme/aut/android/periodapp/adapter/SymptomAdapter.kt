@@ -24,7 +24,7 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
             listener.onItemDeleted(symptomItem)
         }
         holder.binding.ibEdit.setOnClickListener {
-            edit(symptomItem)
+            //edit(symptomItem)
             listener.onItemEdited(symptomItem)
         }
         holder.binding.tvCategory.text =symptomItem.category
@@ -63,8 +63,11 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
         notifyItemRemoved(n)
     }
 
-    fun edit(shoppingItem: SymptomItem) {
-        delete(shoppingItem)
+    fun edit(shoppingItem: SymptomItem, oldItem: SymptomItem) {
+        val n=items.indexOf(oldItem)
+        items.removeAt(n)
+        items.add(n,shoppingItem)
+        notifyItemChanged(n)
     }
 
     override fun getItemCount(): Int = items.size

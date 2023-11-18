@@ -93,9 +93,13 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
         }
     }
 
-    override fun onItemEdited(newItem: SymptomItem, oldItem: SymptomItem) {
-        onSymptomItemCreated(newItem)
-        onItemDeleted(oldItem)
+    override fun onSymptomItemEdited(newItem: SymptomItem, oldItem: SymptomItem) {
+        //onSymptomItemCreated(newItem)
+        //onItemDeleted(oldItem)
+        Thread{
+            database.symptomItemDao().update(newItem)
+        }
+        adapter.edit(newItem,oldItem)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
