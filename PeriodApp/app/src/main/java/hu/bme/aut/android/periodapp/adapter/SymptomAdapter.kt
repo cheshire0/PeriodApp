@@ -23,6 +23,10 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
             delete(symptomItem)
             listener.onItemDeleted(symptomItem)
         }
+        holder.binding.ibEdit.setOnClickListener {
+            edit(symptomItem)
+            listener.onItemEdited(symptomItem)
+        }
         holder.binding.tvCategory.text =symptomItem.category
         when(symptomItem.category){
             "BLEEDING"->holder.binding.ivIcon.setImageResource(R.drawable.ic_blood_foreground)
@@ -59,11 +63,16 @@ RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
         notifyItemRemoved(n)
     }
 
+    fun edit(shoppingItem: SymptomItem) {
+        delete(shoppingItem)
+    }
+
     override fun getItemCount(): Int = items.size
 
     interface SymptomItemClickListener {
         fun onItemChanged(item: SymptomItem)
         fun onItemDeleted(item: SymptomItem)
+        fun onItemEdited(item: SymptomItem)
     }
 
     inner class SymptomViewHolder(val binding: ItemSymptomListBinding) : RecyclerView.ViewHolder(binding.root)

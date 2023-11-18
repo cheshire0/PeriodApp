@@ -1,7 +1,6 @@
-package hu.bme.aut.android.periodapp
+package hu.bme.aut.android.periodapp.misc
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +9,8 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import hu.bme.aut.android.periodapp.R
+import hu.bme.aut.android.periodapp.StatisticsActivity
 
 class AlarmReceiver : BroadcastReceiver() {
 

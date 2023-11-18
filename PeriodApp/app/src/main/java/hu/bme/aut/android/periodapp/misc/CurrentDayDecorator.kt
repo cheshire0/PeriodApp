@@ -1,13 +1,12 @@
-package hu.bme.aut.android.periodapp
+package hu.bme.aut.android.periodapp.misc
 
 import android.app.Activity
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
-import com.prolificinteractive.materialcalendarview.spans.DotSpan
+import hu.bme.aut.android.periodapp.R
 
 
 class CurrentDayDecorator(context: Activity?, currentDay: CalendarDay) : DayViewDecorator {

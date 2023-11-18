@@ -1,6 +1,5 @@
 package hu.bme.aut.android.periodapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -12,17 +11,11 @@ import hu.bme.aut.android.periodapp.adapter.SymptomAdapter
 import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityTrackBinding
-import hu.bme.aut.android.periodapp.fragments.NewBleedingItemDialogFragment
-import hu.bme.aut.android.periodapp.fragments.NewEmotionsItemDialogFragment
-import hu.bme.aut.android.periodapp.fragments.NewHungerItemDialogFragment
-import hu.bme.aut.android.periodapp.fragments.NewPainItemDialogFragment
+import hu.bme.aut.android.periodapp.misc.NewSymptomItemDialogFragment
 import kotlin.concurrent.thread
 
 class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListener,
-    NewBleedingItemDialogFragment.NewSymptomItemDialogListener,
-    NewPainItemDialogFragment.NewSymptomItemDialogListener,
-    NewEmotionsItemDialogFragment.NewSymptomItemDialogListener,
-    NewHungerItemDialogFragment.NewSymptomItemDialogListener{
+    NewSymptomItemDialogFragment.NewSymptomItemDialogListener{
 
     private lateinit var binding: ActivityTrackBinding
 
@@ -33,15 +26,32 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
     override fun onItemChanged(item: SymptomItem) {
         thread {
             database.symptomItemDao().update(item)
-            Log.d("MainActivity", "ShoppingItem update was successful")
+            Log.d("TrackActivity", "ShoppingItem update was successful")
         }
     }
     override fun onItemDeleted(item: SymptomItem) {
         thread {
             database.symptomItemDao().deleteItem(item)
-            Log.d("MainActivity", "ShoppingItem delete was successful")
+            Log.d("TrackActivity", "ShoppingItem delete was successful")
         }
     }
+
+    fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
+
+    override fun onItemEdited(item: SymptomItem) {
+        var array=resources.getStringArray(R.array.bleeding_items)
+        when(item.category){
+            "BLEEDING"->array=resources.getStringArray(R.array.bleeding_items)
+            "PAIN"->array=resources.getStringArray(R.array.pain_items)
+            "EMOTIONS"->array=resources.getStringArray(R.array.emotions_items)
+            "HUNGER"->array=resources.getStringArray(R.array.hunger_items)
+        }
+        NewSymptomItemDialogFragment(item.date,item.category.lowercase().titlecaseFirstChar(),array,item).show(
+            supportFragmentManager,
+            NewSymptomItemDialogFragment.TAG
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityTrackBinding.inflate(layoutInflater)
@@ -82,6 +92,12 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
             }
         }
     }
+
+    override fun onItemEdited(newItem: SymptomItem, oldItem: SymptomItem) {
+        onSymptomItemCreated(newItem)
+        onItemDeleted(oldItem)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val toolbarMenu: Menu = binding.toolbar.menu
         menuInflater.inflate(R.menu.menu_toolbar, toolbarMenu)
@@ -101,30 +117,30 @@ class TrackActivity: AppCompatActivity(), SymptomAdapter.SymptomItemClickListene
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_bleeding -> {
-                NewBleedingItemDialogFragment(date).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.bleeding),resources.getStringArray(R.array.bleeding_items)).show(
                     supportFragmentManager,
-                    NewBleedingItemDialogFragment.TAG
+                    NewSymptomItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_pain -> {
-                NewPainItemDialogFragment(date).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.pain),resources.getStringArray(R.array.pain_items)).show(
                     supportFragmentManager,
-                    NewPainItemDialogFragment.TAG
+                    NewSymptomItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_emotions -> {
-                NewEmotionsItemDialogFragment(date).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.emotions),resources.getStringArray(R.array.emotions_items)).show(
                     supportFragmentManager,
-                    NewEmotionsItemDialogFragment.TAG
+                    NewSymptomItemDialogFragment.TAG
                 )
                 true
             }
             R.id.menu_hunger -> {
-                NewHungerItemDialogFragment(date).show(
+                NewSymptomItemDialogFragment(date,resources.getString(R.string.hunger),resources.getStringArray(R.array.hunger_items)).show(
                     supportFragmentManager,
-                    NewHungerItemDialogFragment.TAG
+                    NewSymptomItemDialogFragment.TAG
                 )
                 true
             }

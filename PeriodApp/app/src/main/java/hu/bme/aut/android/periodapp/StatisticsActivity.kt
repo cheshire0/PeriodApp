@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityStatisticsBinding
+import hu.bme.aut.android.periodapp.misc.AlarmReceiver
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDate
@@ -178,9 +179,6 @@ class StatisticsActivity: AppCompatActivity() {
         notif=calendar
     }
 
-    /**
-     * Creates Notification Channel (required for API level >= 26) before sending any notification.
-     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
         val channel = NotificationChannel(

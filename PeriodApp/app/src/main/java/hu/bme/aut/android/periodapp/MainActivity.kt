@@ -3,17 +3,14 @@ package hu.bme.aut.android.periodapp
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import hu.bme.aut.android.periodapp.adapter.SymptomAdapter
-import hu.bme.aut.android.periodapp.data.SymptomItem
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityMainBinding
+import hu.bme.aut.android.periodapp.misc.CurrentDayDecorator
 import java.util.Calendar
 import kotlin.concurrent.thread
 
