@@ -21,9 +21,11 @@ import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.periodapp.data.SymptomListDatabase
 import hu.bme.aut.android.periodapp.databinding.ActivityStatisticsBinding
 import hu.bme.aut.android.periodapp.misc.AlarmReceiver
+import hu.bme.aut.android.periodapp.misc.DateParser.dateParser
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import kotlin.concurrent.thread
@@ -109,7 +111,11 @@ class StatisticsActivity: AppCompatActivity() {
             if(n-1>0)div=n-1
             binding.tvACL.text = (sumC/div).toString()+" days"
             val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val date = LocalDate.parse(firstDayOfPeriod,format)
+            val dateTriple= dateParser(firstDayOfPeriod)
+            var calendar=Calendar.getInstance()
+            calendar.set(dateTriple.first,dateTriple.second,dateTriple.third)
+            var date= LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()).toLocalDate()
+
             prediction=date.plusDays((sumC/div).toLong())
             if(prediction.isBefore(LocalDate.now())) {
                 prediction = LocalDate.now().plusDays(1)
@@ -122,10 +128,14 @@ class StatisticsActivity: AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getDay(string: String): Int{
-        if(string.length<9) return -1
+        if(string.length<9)return -1
 
         val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val date = LocalDate.parse(string,format)
+        //val date = LocalDate.parse(string,format)
+        val dateTriple= dateParser(string)
+        var calendar=Calendar.getInstance()
+        calendar.set(dateTriple.first,dateTriple.second,dateTriple.third)
+        var date= LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()).toLocalDate();
         val firstTimestampInclusive = LocalDate.of(1900, 1, 1)
         val numberOfDays = Duration.between(firstTimestampInclusive.atStartOfDay(), date.atStartOfDay()).toDays()
         return numberOfDays.toInt()
